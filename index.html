@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pirties Kainos Skaičiuoklė</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    select, button {
+      margin-top: 5px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #ffcc00;
+      color: #333;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #e6b800;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .image-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pirties Kainos Skaičiuoklė</h1>
+    <form id="calculator">
+      <!-- Pirties Forma -->
+      <label for="shape">Pirties Forma:</label>
+      <select id="shape" class="dropdown" onchange="updateImage('shape')">
+        <option value="A" data-price="0" data-image="https://via.placeholder.com/400x200?text=Pirtis+A">A - €0</option>
+        <option value="B" data-price="100" data-image="https://via.placeholder.com/400x200?text=Pirtis+B">B - €100</option>
+        <option value="C" data-price="200" data-image="https://via.placeholder.com/400x200?text=Pirtis+C">C - €200</option>
+        <option value="D" data-price="300" data-image="https://via.placeholder.com/400x200?text=Pirtis+D">D - €300</option>
+      </select>
+      <div class="image-container">
+        <img id="shapeImage" src="https://via.placeholder.com/400x200?text=Pirtis+A" alt="Pirties Forma" />
+      </div>
+
+      <!-- Pirties Ilgis -->
+      <label for="length">Ilgis:</label>
+      <select id="length" class="dropdown" onchange="updateImage('length')">
+        <option value="2" data-price="0" data-image="https://via.placeholder.com/400x200?text=2m+Pirtis">2m - €0</option>
+        <option value="3" data-price="200" data-image="https://via.placeholder.com/400x200?text=3m+Pirtis">3m - €200</option>
+        <option value="3.5" data-price="300" data-image="https://via.placeholder.com/400x200?text=3.5m+Pirtis">3.5m - €300</option>
+        <option value="4" data-price="400" data-image="https://via.placeholder.com/400x200?text=4m+Pirtis">4m - €400</option>
+        <option value="5" data-price="500" data-image="https://via.placeholder.com/400x200?text=5m+Pirtis">5m - €500</option>
+      </select>
+      <div class="image-container">
+        <img id="lengthImage" src="https://via.placeholder.com/400x200?text=2m+Pirtis" alt="Pirties Ilgis" />
+      </div>
+
+      <!-- Medienos Tipas -->
+      <label for="woodType">Medienos Tipas:</label>
+      <select id="woodType" class="dropdown">
+        <option value="egle" data-price="0">Eglės Mediena - €0</option>
+        <option value="termo" data-price="500">Termo Mediena - €500</option>
+      </select>
+
+      <!-- Krosnelės Tipas -->
+      <label for="stoveType">Krosnelės Tipas:</label>
+      <select id="stoveType" class="dropdown">
+        <option value="none" data-price="0">Be Krosnelės - €0</option>
+        <option value="wood" data-price="800">Malkinė - €800</option>
+        <option value="electric" data-price="1000">Elektrinė - €1000</option>
+      </select>
+
+      <!-- Elektrinės Krosnelės Wi-Fi Valdymas -->
+      <label for="wifiControl">Elektrinės Krosnelės Wi-Fi Valdymas:</label>
+      <select id="wifiControl" class="dropdown">
+        <option value="none" data-price="0">Nėra - €0</option>
+        <option value="yes" data-price="150">Yra - €150</option>
+      </select>
+
+      <!-- LED Apšvietimas -->
+      <label for="lighting">LED Apšvietimas:</label>
+      <select id="lighting" class="dropdown">
+        <option value="none" data-price="0">Nėra - €0</option>
+        <option value="yes" data-price="300">Yra - €300</option>
+      </select>
+
+      <h2>Viso: €<span id="total">0</span></h2>
+      <button type="button" id="calculate">Apskaičiuoti</button>
+    </form>
+  </div>
+  <script>
+    // Funkcija atnaujinti nuotraukas pagal pasirinktą reikšmę
+    function updateImage(type) {
+      const dropdown = document.getElementById(type);
+      const selectedOption = dropdown.options[dropdown.selectedIndex];
+      const imageUrl = selectedOption.getAttribute('data-image');
+
+      // Atnaujinti atitinkamą nuotrauką
+      const imageElement = document.getElementById(`${type}Image`);
+      imageElement.src = imageUrl;
+    }
+
+    // Funkcija apskaičiuoti bendrą kainą
+    document.getElementById('calculate').addEventListener('click', function () {
+      let total = 0; // Bendros kainos pradinė reikšmė
+
+      // Surasti visus dropdown pasirinkimus
+      const dropdowns = document.querySelectorAll('.dropdown');
+
+      dropdowns.forEach((dropdown) => {
+        const selectedOption = dropdown.options[dropdown.selectedIndex];
+        const price = parseInt(selectedOption.getAttribute('data-price'));
+
+        // Jei kaina yra skaičius, pridėti ją prie bendros sumos
+        if (!isNaN(price)) {
+          total += price;
+        }
+      });
+
+      // Atvaizduoti bendrą sumą
+      document.getElementById('total').innerText = total.toFixed(2);
+    });
+  </script>
+</body>
+</html>
