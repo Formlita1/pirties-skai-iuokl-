@@ -32,6 +32,34 @@
       flex-direction: column;
     }
 
+    .options-container {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+    }
+
+    .option {
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .option input[type="radio"] {
+      display: none;
+    }
+
+    .option img {
+      max-width: 120px;
+      height: auto;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      transition: transform 0.2s, border 0.2s;
+    }
+
+    .option input[type="radio"]:checked + img {
+      border-color: #ffcc00;
+      transform: scale(1.1);
+    }
+
     label {
       margin-top: 10px;
       font-weight: bold;
@@ -60,74 +88,73 @@
       text-align: center;
       margin-top: 20px;
     }
-
-    .image-container {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    .image-container img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Pirties Kainos Skaičiuoklė</h1>
 
-    <!-- Pirties Forma -->
-    <label for="shape">Pirties Forma:</label>
-    <select id="shape" class="dropdown" onchange="updateImage('shape')">
-      <option value="A" data-price="0" data-image="images/pirtis_A.jpg">A - €0</option>
-      <option value="B" data-price="100" data-image="images/pirtis_B.jpg">B - €100</option>
-      <option value="C" data-price="200" data-image="images/pirtis_C.jpg">C - €200</option>
-      <option value="D" data-price="300" data-image="images/pirtis_D.jpg">D - €300</option>
-    </select>
-    <div class="image-container">
-      <img id="shapeImage" src="images/pirtis_A.jpg" alt="Pirties Forma" />
+    <!-- Pirties Formos -->
+    <label for="shape">Pasirinkite Pirties Formą:</label>
+    <div class="options-container">
+      <div class="option">
+        <input type="radio" id="shapeA" name="shape" value="A" data-price="0">
+        <label for="shapeA">
+          <img src="images/pirtis_A.jpg" alt="Pirtis A">
+          <p>A - €0</p>
+        </label>
+      </div>
+      <div class="option">
+        <input type="radio" id="shapeB" name="shape" value="B" data-price="100">
+        <label for="shapeB">
+          <img src="images/pirtis_B.jpg" alt="Pirtis B">
+          <p>B - €100</p>
+        </label>
+      </div>
+      <div class="option">
+        <input type="radio" id="shapeC" name="shape" value="C" data-price="200">
+        <label for="shapeC">
+          <img src="images/pirtis_C.jpg" alt="Pirtis C">
+          <p>C - €200</p>
+        </label>
+      </div>
+      <div class="option">
+        <input type="radio" id="shapeD" name="shape" value="D" data-price="300">
+        <label for="shapeD">
+          <img src="images/pirtis_D.jpg" alt="Pirtis D">
+          <p>D - €300</p>
+        </label>
+      </div>
     </div>
 
     <!-- Ilgis -->
     <label for="length">Ilgis:</label>
-    <select id="length" class="dropdown" onchange="updateImage('length')">
-      <option value="2" data-price="0" data-image="images/pirtis_2m.jpg">2m - €0</option>
-      <option value="3" data-price="200" data-image="images/pirtis_3m.jpg">3m - €200</option>
-      <option value="3.5" data-price="300" data-image="images/pirtis_3.5m.jpg">3.5m - €300</option>
-      <option value="4" data-price="400" data-image="images/pirtis_4m.jpg">4m - €400</option>
-      <option value="5" data-price="500" data-image="images/pirtis_5m.jpg">5m - €500</option>
+    <select id="length">
+      <option value="2" data-price="0">2m - €0</option>
+      <option value="3" data-price="200">3m - €200</option>
+      <option value="3.5" data-price="300">3.5m - €300</option>
+      <option value="4" data-price="400">4m - €400</option>
+      <option value="5" data-price="500">5m - €500</option>
     </select>
-    <div class="image-container">
-      <img id="lengthImage" src="images/pirtis_2m.jpg" alt="Pirties Ilgis" />
-    </div>
 
     <!-- Medienos Tipas -->
     <label for="woodType">Medienos Tipas:</label>
-    <select id="woodType" class="dropdown">
+    <select id="woodType">
       <option value="egle" data-price="0">Eglės Mediena - €0</option>
       <option value="termo" data-price="500">Termo Mediena - €500</option>
     </select>
 
     <!-- Krosnelės Tipas -->
     <label for="stoveType">Krosnelės Tipas:</label>
-    <select id="stoveType" class="dropdown">
+    <select id="stoveType">
       <option value="none" data-price="0">Be Krosnelės - €0</option>
       <option value="wood" data-price="800">Malkinė - €800</option>
       <option value="electric" data-price="1000">Elektrinė - €1000</option>
     </select>
 
-    <!-- Wi-Fi Valdymas -->
-    <label for="wifiControl">Elektrinės Krosnelės Wi-Fi Valdymas:</label>
-    <select id="wifiControl" class="dropdown">
-      <option value="none" data-price="0">Nėra - €0</option>
-      <option value="yes" data-price="150">Yra - €150</option>
-    </select>
-
     <!-- LED Apšvietimas -->
     <label for="lighting">LED Apšvietimas:</label>
-    <select id="lighting" class="dropdown">
+    <select id="lighting">
       <option value="none" data-price="0">Nėra - €0</option>
       <option value="yes" data-price="300">Yra - €300</option>
     </select>
@@ -138,22 +165,18 @@
   </div>
 
   <script>
-    // Funkcija atnaujinti nuotrauką pagal pasirinktą reikšmę
-    function updateImage(type) {
-      const dropdown = document.getElementById(type);
-      const selectedOption = dropdown.options[dropdown.selectedIndex];
-      const imageUrl = selectedOption.getAttribute('data-image');
-
-      // Atnaujinti atitinkamą nuotrauką
-      const imageElement = document.getElementById(`${type}Image`);
-      imageElement.src = imageUrl;
-    }
-
-    // Funkcija apskaičiuoti kainą
+    // Kainos skaičiavimas
     document.getElementById('calculate').addEventListener('click', function () {
       let total = 0;
 
-      const dropdowns = document.querySelectorAll('.dropdown');
+      // Gauti pasirinktą pirties formą
+      const selectedShape = document.querySelector('input[name="shape"]:checked');
+      if (selectedShape) {
+        total += parseInt(selectedShape.getAttribute('data-price'));
+      }
+
+      // Gauti kitus pasirinkimus
+      const dropdowns = document.querySelectorAll('select');
       dropdowns.forEach((dropdown) => {
         const selectedOption = dropdown.options[dropdown.selectedIndex];
         const price = parseInt(selectedOption.getAttribute('data-price'));
@@ -165,14 +188,16 @@
       document.getElementById('total').innerText = total.toFixed(2);
     });
 
-    // Funkcija PDF generavimui
+    // PDF generavimas
     document.getElementById('generatePDF').addEventListener('click', function () {
-      const shape = document.getElementById('shape').options[document.getElementById('shape').selectedIndex].text;
+      const selectedShape = document.querySelector('input[name="shape"]:checked');
+      const shapeText = selectedShape ? selectedShape.nextElementSibling.textContent.trim() : "Nežinoma";
+
       const length = document.getElementById('length').options[document.getElementById('length').selectedIndex].text;
       const woodType = document.getElementById('woodType').options[document.getElementById('woodType').selectedIndex].text;
       const stoveType = document.getElementById('stoveType').options[document.getElementById('stoveType').selectedIndex].text;
-      const wifiControl = document.getElementById('wifiControl').options[document.getElementById('wifiControl').selectedIndex].text;
       const lighting = document.getElementById('lighting').options[document.getElementById('lighting').selectedIndex].text;
+
       const totalPrice = document.getElementById('total').innerText;
 
       const { jsPDF } = window.jspdf;
@@ -180,12 +205,11 @@
 
       pdf.text("Pirties Užsakymas", 10, 10);
       pdf.text("Pasirinkimai:", 10, 20);
-      pdf.text(`Pirties Forma: ${shape}`, 10, 30);
+      pdf.text(`Pirties Forma: ${shapeText}`, 10, 30);
       pdf.text(`Ilgis: ${length}`, 10, 40);
       pdf.text(`Medienos Tipas: ${woodType}`, 10, 50);
       pdf.text(`Krosnelės Tipas: ${stoveType}`, 10, 60);
-      pdf.text(`Wi-Fi Valdymas: ${wifiControl}`, 10, 70);
-      pdf.text(`LED Apšvietimas: ${lighting}`, 10, 80);
+      pdf.text(`LED Apšvietimas: ${lighting}`, 10, 70);
 
       pdf.text(`Bendra Kaina: €${totalPrice}`, 10, 100);
 
